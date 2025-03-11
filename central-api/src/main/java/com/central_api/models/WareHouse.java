@@ -9,6 +9,6 @@ public class WareHouse {
     String name;
     String email;
     String address;
-    int pincode;
+    int pinCode;
     AppUser manager;
 }

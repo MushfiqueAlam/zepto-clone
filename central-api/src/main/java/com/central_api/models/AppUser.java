@@ -1,10 +1,12 @@
 package com.central_api.models;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
+@Builder
 public class AppUser {
     UUID id;
     String name;
@@ -12,7 +14,7 @@ public class AppUser {
     String password;
     Long phoneNumber;
     String userType;
-    int pincode;
+    int pinCode;
     String address;
     String status;
 }
