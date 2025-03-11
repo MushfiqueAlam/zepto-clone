@@ -1,6 +1,7 @@
 package com.db_api.models;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Builder
 public class AppOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

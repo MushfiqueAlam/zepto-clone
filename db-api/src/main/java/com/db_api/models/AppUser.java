@@ -20,7 +20,8 @@ public class AppUser {
     @Column(unique = true)
     Long phoneNumber;
     String userType;
-    int pincode;
+    @Column(nullable = false)
+    int pinCode;
     String address;
     String status;
 
