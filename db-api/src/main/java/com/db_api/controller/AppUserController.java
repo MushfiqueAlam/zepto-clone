@@ -3,6 +3,8 @@ package com.db_api.controller;
 import com.db_api.models.AppOrder;
 import com.db_api.models.AppUser;
 import com.db_api.repository.AppUserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/db/user")
 public class AppUserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private AppUserRepository appUserRepository;
     @Autowired
     public AppUserController(AppUserRepository appUserRepository){
@@ -29,15 +33,15 @@ public class AppUserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser );
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<AppUser> getUserById(@PathVariable UUID userId){
-        AppUser appUser=appUserRepository.findById(userId).get();
-        if(appUser!=null){
-            return ResponseEntity.ok(appUser);
-        }else{
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/{userId}")
+//    public ResponseEntity<AppUser> getUserById(@PathVariable UUID userId){
+//        AppUser appUser=appUserRepository.findById(userId).get();
+//        if(appUser!=null){
+//            return ResponseEntity.ok(appUser);
+//        }else{
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<AppUser> updateUserById(@RequestBody AppUser appUser,@PathVariable UUID id){
@@ -72,5 +76,16 @@ public class AppUserController {
     @GetMapping("/findByEmail/{email}")
     public AppUser getByEmail(@PathVariable String email){
         return appUserRepository.findByEmail(email);
+    }
+    @GetMapping("/{email}")
+    public ResponseEntity<AppUser> getUserByEmail(@PathVariable String email){
+        logger.info(String.valueOf(email));
+        AppUser appUser=appUserRepository.findByEmail(email);
+            logger.info(String.valueOf(appUser));
+        if(appUser!=null){
+            return ResponseEntity.ok(appUser);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }

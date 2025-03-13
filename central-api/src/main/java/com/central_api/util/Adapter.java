@@ -1,6 +1,8 @@
 package com.central_api.util;
 
 import com.central_api.models.AppUser;
+import com.central_api.models.Product;
+import com.central_api.requestDto.RegisterProductDto;
 import com.central_api.requestDto.RegisterUserDto;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +19,18 @@ public class Adapter {
                 .build();
 
         return appUser;
+    }
+
+    public Product requestDtoToProduct(RegisterProductDto registerProductDto){
+        Product product=Product.builder()
+                .productName(registerProductDto.getProductName())
+                .productPrice(registerProductDto.getProductPrice())
+                .manufacturerEmail(registerProductDto.getManufacturerEmail())
+                .details(registerProductDto.getDetails())
+                .weight(registerProductDto.getWeight())
+                .rating(registerProductDto.getRating())
+                .totalPurchase(registerProductDto.getTotalPurchase())
+                .build();
+        return product;
     }
 }

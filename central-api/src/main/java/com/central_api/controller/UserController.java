@@ -23,4 +23,6 @@ public class UserController {
             AppUser appUser=userService.createUser(userDto);
             return appUser;
         }
+
+        
 }

@@ -1,6 +1,7 @@
 package com.central_api.util;
 
 import com.central_api.models.AppUser;
+import com.central_api.models.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,5 +47,20 @@ public class DatabaseApi extends ApiUtilImpl{
         Object response=makePostCall(dbApiUrl,"/user/save",new HashMap<>(),user);
         AppUser userResponse=mapper.map(response, AppUser.class);
         return userResponse;
+    }
+
+    public Product callCreateProductEndPoint(Product product){
+        Object response=makePostCall(dbApiUrl,"/product/save",new HashMap<>(),product);
+        return mapper.map(response,Product.class);
+    }
+
+    public AppUser getUserByEmail(String email) {
+        String endPoint="/user/"+email;
+        Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+        if (response == null) {
+            // Handle the case where the user is not found
+            return null; // or throw a custom exception
+        }
+        return mapper.map(response,AppUser.class);
     }
 }
