@@ -1,9 +1,15 @@
 package com.central_api.models;
 
-import lombok.Data;
+import lombok.*;
 
+import java.security.cert.CertPathBuilder;
 import java.util.UUID;
+
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class WareHouse {
     UUID id;
     String name;
@@ -11,4 +17,6 @@ public class WareHouse {
     String address;
     int pinCode;
     AppUser manager;
+
+
 }

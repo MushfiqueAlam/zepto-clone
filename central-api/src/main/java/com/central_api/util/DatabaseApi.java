@@ -2,6 +2,7 @@ package com.central_api.util;
 
 import com.central_api.models.AppUser;
 import com.central_api.models.Product;
+import com.central_api.models.WareHouse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.HashMap;
+import java.util.UUID;
 
 @Component
 public class DatabaseApi extends ApiUtilImpl{
@@ -62,5 +64,19 @@ public class DatabaseApi extends ApiUtilImpl{
             return null; // or throw a custom exception
         }
         return mapper.map(response,AppUser.class);
+    }
+
+    public AppUser getUserByUserId(UUID userId) {
+        //need to call th dbApi
+        String endPoint="/user/"+userId.toString();
+        Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+        return mapper.map(response, AppUser.class);
+    }
+
+    public WareHouse createWareHouse(WareHouse wareHouse) {
+        String endPoint="/wareHouse/save";
+        Object response=makePostCall(dbApiUrl,endPoint,new HashMap<>(),wareHouse);
+        return mapper.map(response,WareHouse.class);
+
     }
 }
