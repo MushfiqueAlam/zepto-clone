@@ -11,13 +11,13 @@ public class UserUtil {
         if(user==null){
             throw  new UserNotFoundException(String.format("User is not exit!"));
         }
-        return user.getUserType().equals(UserType.APPLICATION_ADMIN.toString())?true:false;
+        return user.getUserType().equals(UserType.APPLICATION_ADMIN.toString());
     }
 
     public boolean isZeptoApplicationManager(AppUser user){
         if(user==null){
             throw new UserNotFoundException(String.format("User is not exit!"));
         }
-        return user.getUserType().equals(UserType.WAREHOUSE_MANAGER.toString())?true:false;
+        return user.getUserType().equals(UserType.WAREHOUSE_MANAGER.toString());
     }
 }

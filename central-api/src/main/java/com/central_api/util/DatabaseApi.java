@@ -3,6 +3,7 @@ package com.central_api.util;
 import com.central_api.models.AppUser;
 import com.central_api.models.Product;
 import com.central_api.models.WareHouse;
+import com.central_api.models.WareHouseProducts;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +58,7 @@ public class DatabaseApi extends ApiUtilImpl{
     }
 
     public AppUser getUserByEmail(String email) {
-        String endPoint="/user/"+email;
+        String endPoint="/user/findByEmail/"+email;
         Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
         if (response == null) {
             // Handle the case where the user is not found
@@ -74,9 +75,15 @@ public class DatabaseApi extends ApiUtilImpl{
     }
 
     public WareHouse createWareHouse(WareHouse wareHouse) {
-        String endPoint="/wareHouse/save";
+        String endPoint="/warehouse/save";
         Object response=makePostCall(dbApiUrl,endPoint,new HashMap<>(),wareHouse);
         return mapper.map(response,WareHouse.class);
 
+    }
+
+    public WareHouseProducts createWareHouseProducts(WareHouseProducts products){
+        String endPoint="/warehouse/products/save";
+        Object response=makePostCall(dbApiUrl,endPoint,new HashMap<>(),products);
+        return mapper.map(response, WareHouseProducts.class);
     }
 }

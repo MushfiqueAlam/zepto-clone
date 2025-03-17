@@ -3,9 +3,11 @@ package com.central_api.util;
 import com.central_api.models.AppUser;
 import com.central_api.models.Product;
 import com.central_api.models.WareHouse;
+import com.central_api.models.WareHouseProducts;
 import com.central_api.requestDto.RegisterProductDto;
 import com.central_api.requestDto.RegisterUserDto;
 import com.central_api.requestDto.RegisterWareHouseDto;
+import com.central_api.requestDto.RegisterWareHouseProductDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -47,4 +49,15 @@ public class Adapter {
         return wareHouse;
     }
 
+    public WareHouseProducts requestDtoToWareHouseProduct(RegisterWareHouseProductDto wareHouseProductDto){
+
+        WareHouseProducts products=WareHouseProducts.builder()
+                .pid(wareHouseProductDto.getPid())
+                .wid(wareHouseProductDto.getWid())
+                .discount(wareHouseProductDto.getDiscount())
+                .totalQuantity(wareHouseProductDto.getTotalQuantity())
+                .build();
+
+        return products;
+    }
 }

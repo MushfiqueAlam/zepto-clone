@@ -33,15 +33,15 @@ public class AppUserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser );
     }
 
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<AppUser> getUserById(@PathVariable UUID userId){
-//        AppUser appUser=appUserRepository.findById(userId).get();
-//        if(appUser!=null){
-//            return ResponseEntity.ok(appUser);
-//        }else{
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @GetMapping("/{userId}")
+    public ResponseEntity<AppUser> getUserById(@PathVariable UUID userId){
+        AppUser appUser=appUserRepository.findById(userId).get();
+        if(appUser!=null){
+            return ResponseEntity.ok(appUser);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<AppUser> updateUserById(@RequestBody AppUser appUser,@PathVariable UUID id){
@@ -77,15 +77,15 @@ public class AppUserController {
     public AppUser getByEmail(@PathVariable String email){
         return appUserRepository.findByEmail(email);
     }
-    @GetMapping("/{email}")
-    public ResponseEntity<AppUser> getUserByEmail(@PathVariable String email){
-        logger.info(String.valueOf(email));
-        AppUser appUser=appUserRepository.findByEmail(email);
-            logger.info(String.valueOf(appUser));
-        if(appUser!=null){
-            return ResponseEntity.ok(appUser);
-        }else{
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/{email}")
+//    public ResponseEntity<AppUser> getUserByEmail(@PathVariable String email){
+//        logger.info(String.valueOf(email));
+//        AppUser appUser=appUserRepository.findByEmail(email);
+//            logger.info(String.valueOf(appUser));
+//        if(appUser!=null){
+//            return ResponseEntity.ok(appUser);
+//        }else{
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 }
