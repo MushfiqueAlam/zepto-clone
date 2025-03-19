@@ -14,7 +14,7 @@ public class WareHouse {
     String name;
     String address;
     String email;
-    int pincode;
+    int pinCode;
 
     @OneToOne
     AppUser manager;

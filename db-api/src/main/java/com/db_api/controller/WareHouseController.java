@@ -31,4 +31,9 @@ public class WareHouseController {
        wareHoseRepository.save(wareHouse);
        return wareHouse;
     }
+
+    @GetMapping("/pinCode/{pinCode}")
+    public WareHouse getWareHouseUsingPinCode(@PathVariable int pinCode){
+        return wareHoseRepository.getWareHouseByPinCode(pinCode);
+    }
 }
