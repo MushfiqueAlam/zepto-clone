@@ -5,6 +5,8 @@ import com.central_api.models.Product;
 import com.central_api.models.WareHouse;
 import com.central_api.models.WareHouseProducts;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.modelmapper.internal.bytebuddy.description.method.MethodDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -13,8 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+//import java.lang.stereotype.Type;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -85,5 +90,25 @@ public class DatabaseApi extends ApiUtilImpl{
         String endPoint="/warehouse/products/save";
         Object response=makePostCall(dbApiUrl,endPoint,new HashMap<>(),products);
         return mapper.map(response, WareHouseProducts.class);
+    }
+
+    public WareHouse getWareHouseByPinCode(int pinCode) {
+        String endPoint="/warehouse/pinCode/"+pinCode;
+        Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+        return mapper.map(response,WareHouse.class);
+    }
+
+    public Product getProductByProductId(UUID pId) {
+        String endPoint="/product/"+pId.toString();;
+        Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+        return mapper.map(response, Product.class);
+    }
+
+    public List<WareHouseProducts> getProductByWareHouseId(UUID wId) {
+        String endPoint="/warehouse/product/"+wId.toString();
+        Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+        Type listType=new TypeToken<List<WareHouseProducts>>(){}.getType();
+
+        return mapper.map(response,listType);
     }
 }
