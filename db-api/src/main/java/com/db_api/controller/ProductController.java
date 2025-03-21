@@ -23,7 +23,18 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 
-    @GetMapping("/getById/{id}")
+//    @GetMapping("/getById/{id}")
+//    public ResponseEntity<Product> getById(@PathVariable UUID id) {
+//        // Use findById instead of getById to avoid exceptions
+//        Optional<Product> productOptional = productRepository.findById(id);
+//
+//        if (productOptional.isPresent()) {
+//            return ResponseEntity.ok(productOptional.get()); // Return 200 OK with the product
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Return 404 Not Found
+//        }
+//    }
+    @GetMapping("/{id}")
     public ResponseEntity<Product> getById(@PathVariable UUID id) {
         // Use findById instead of getById to avoid exceptions
         Optional<Product> productOptional = productRepository.findById(id);
