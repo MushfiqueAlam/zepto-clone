@@ -1,6 +1,7 @@
 package com.central_api.service;
 
 import com.central_api.enums.UserType;
+import com.central_api.exception.ProductNotPresentException;
 import com.central_api.exception.UnAuthorized;
 import com.central_api.exception.UserNotFoundException;
 import com.central_api.exception.WareHouseNotFoundException;
@@ -31,6 +32,8 @@ public class WareHouseService {
 
     @Autowired
     UserUtil userUtil;
+
+
 
     public WareHouse createWareHouse(UUID id,RegisterWareHouseDto wareHouseDto) throws UnAuthorized {
         AppUser user=databaseApi.getUserByUserId(id);
@@ -91,5 +94,13 @@ public class WareHouseService {
         }
         return products;
 
+    }
+
+    public  WareHouseProducts getProductByWidPid(UUID wid, UUID pid) throws ProductNotPresentException {
+        WareHouseProducts wareHouseProducts=databaseApi.getProductByWidPid(wid,pid);
+        if(wareHouseProducts==null){
+            throw new ProductNotPresentException(String.format("Product with id %s is not present in warehouse Id %s",pid.toString(),wid.toString()));
+        }
+        return wareHouseProducts;
     }
 }

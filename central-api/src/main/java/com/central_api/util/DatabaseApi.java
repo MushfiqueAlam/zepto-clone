@@ -1,9 +1,6 @@
 package com.central_api.util;
 
-import com.central_api.models.AppUser;
-import com.central_api.models.Product;
-import com.central_api.models.WareHouse;
-import com.central_api.models.WareHouseProducts;
+import com.central_api.models.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.internal.bytebuddy.description.method.MethodDescription;
@@ -113,5 +110,17 @@ public class DatabaseApi extends ApiUtilImpl{
         Type listType=new TypeToken<List<WareHouseProducts>>(){}.getType();
 
         return mapper.map(response,listType);
+    }
+
+    public WareHouseProducts getProductByWidPid(UUID wid,UUID pid){
+         String endPoint="/warehouse/product/"+wid.toString()+"/"+pid.toString();
+         Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+         return mapper.map(response, WareHouseProducts.class);
+    }
+
+    public AppOrder saveOrder(AppOrder order){
+        String endPoint="/order/save";
+        Object response=makePostCall(dbApiUrl,endPoint,new HashMap<>(),order);
+        return mapper.map(response, AppOrder.class);
     }
 }
