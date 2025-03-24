@@ -25,4 +25,9 @@ public class WareHouseProductsController {
     public List<WareHouseProducts> getAllProductsByWid(@PathVariable UUID wid){
         return productsRepository.getWareHouseProductsByWid(wid);
     }
+
+    @GetMapping("/{wid}/{pid}")
+    public WareHouseProducts getProductByWidPid(@PathVariable UUID wid,@PathVariable UUID pid ){
+        return productsRepository.getProductByWidPid(wid,pid);
+    }
 }

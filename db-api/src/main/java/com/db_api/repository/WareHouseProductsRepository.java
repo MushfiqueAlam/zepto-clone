@@ -14,4 +14,6 @@ public interface WareHouseProductsRepository extends JpaRepository<WareHouseProd
     @Query(value = "select * from ware_house_products where wid=:wid",nativeQuery = true)
     List<WareHouseProducts> getWareHouseProductsByWid(UUID wid);
 
+    @Query(value = "Select * from ware_house_products where wid=:wid and pid=:pid",nativeQuery = true)
+    WareHouseProducts getProductByWidPid(UUID wid, UUID pid);
 }
