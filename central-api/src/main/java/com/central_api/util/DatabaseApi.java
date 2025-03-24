@@ -123,4 +123,11 @@ public class DatabaseApi extends ApiUtilImpl{
         Object response=makePostCall(dbApiUrl,endPoint,new HashMap<>(),order);
         return mapper.map(response, AppOrder.class);
     }
+
+    public List<AppUser> getDeliveryPartnerByPinCode(int pinCode){
+        String endPoint="/user/delivery-partner/"+pinCode;
+        Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+        Type listType=new TypeToken<List<AppUser>>(){}.getType();
+        return mapper.map(response,listType);
+    }
 }

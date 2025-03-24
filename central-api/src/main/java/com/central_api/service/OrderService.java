@@ -4,10 +4,12 @@ import com.central_api.exception.ProductNotPresentException;
 import com.central_api.exception.UserNotFoundException;
 import com.central_api.exception.WareHouseNotFoundException;
 import com.central_api.models.*;
+import com.central_api.requestDto.RequestOrderDto;
 import com.central_api.requestDto.RequestOrderProductDto;
 import com.central_api.responseDto.ResponseBillDto;
 import com.central_api.responseDto.ResponseBillProductDto;
 import com.central_api.util.DatabaseApi;
+import com.central_api.util.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +26,25 @@ public class OrderService {
     @Autowired
     WareHouseService wareHouseService;
 
+    @Autowired
+    MailUtil mailUtil;
+
     public double getPriceAfterDiscount(int amount,int discount){
         double offAmount=amount*(discount/100);
         return amount-offAmount;
+    }
+
+
+    public void notifyDeliveryPartner(int pinCode,AppUser customer,ResponseBillDto bill){
+        List<AppUser> dp=databaseApi.getDeliveryPartnerByPinCode(pinCode);
+
+        for(AppUser partner:dp){
+            RequestOrderDto order=new RequestOrderDto();
+            order.setCustomer(customer);
+            order.setBill(bill);
+            order.setDeliveryPartner(partner);
+            mailUtil.sendNotification(order);
+        }
     }
 
 
@@ -81,8 +99,11 @@ public class OrderService {
         bill.setTotalBilledPayed(totalAmount);
         bill.setProduct(billProduct);
 
+        notifyDeliveryPartner(wareHouse.getPinCode(),user,bill);
+
         return bill;
-
-
     }
+
+
+
 }

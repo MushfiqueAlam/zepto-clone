@@ -7,6 +7,8 @@ import com.central_api.util.DatabaseApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -19,5 +21,9 @@ public class UserService {
         AppUser appUser=adapter.requestDtoToAppUser(userDto);
         AppUser response=databaseApi.callCreateUserEndPoint(appUser);
         return  response;
+    }
+
+    public List<AppUser> getDeliveryPartnerByPincode(int pinCode){
+        return databaseApi.getDeliveryPartnerByPinCode(pinCode);
     }
 }
