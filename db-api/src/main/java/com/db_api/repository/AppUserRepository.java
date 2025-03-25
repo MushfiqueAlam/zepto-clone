@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, UUID> {
-    AppUser findByEmail(String pinCode);
+    AppUser findByEmail(String email);
     @Query(value = "select * from app_user where user_type='regular' and pin_code=:pinCode", nativeQuery = true)
     public List<AppUser> findByPinCode(@Param("pinCode") int pinCode);
 
+    @Query(value = "select * from app_user where user_type='DELIVERY_PARTNER' AND pin_code=:pinCode",nativeQuery = true)
+    List<AppUser> getDeliveryPartnerByPinCode(int pinCode);
 }

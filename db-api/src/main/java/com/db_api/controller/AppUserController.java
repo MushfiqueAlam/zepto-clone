@@ -88,4 +88,9 @@ public class AppUserController {
 //            return ResponseEntity.notFound().build();
 //        }
 //    }
+
+    @GetMapping("/delivery-partner/{pinCode}")
+    public List<AppUser> getDeliveryPartnerByPinCode(@PathVariable int pinCode){
+        return appUserRepository.getDeliveryPartnerByPinCode(pinCode);
+    }
 }
