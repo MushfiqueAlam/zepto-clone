@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>New Order Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .order-details {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fafafa;
+            border-left: 5px solid #007bff;
+        }
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .product-table th, .product-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .product-table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .accept-btn {
+            background-color: #28a745;
+        }
+        .reject-btn {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Order Notification</h2>
+    <p>Dear <b>[[${deliveryPartnerName}]]</b>,</p>
+    <p>A new order has been placed. Please review the details below:</p>
+
+    <div class="order-details">
+        <h3>Customer Details</h3>
+        <p><b>Name:</b> [[${customerName}]]</p>
+        <p><b>Phone:</b> [[${customerPhone}]]</p>
+        <p><b>Address:</b> [[${customerAddress}]]</p>
+
+        <h3>Order Details</h3>
+        <p><b>Order ID:</b> [[${orderId}]]</p>
+        <p><b>Order Placed Time:</b> [[${orderTime}]]</p>
+    </div>
+
+    <h3>Products Ordered</h3>
+    <table class="product-table">
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td>[[${product.productId}]]</td>
+            <td>[[${product.productName}]]</td>
+            <td>[[${product.quantity}]]</td>
+        </tr>
+    </table>
+
+    <h3>Total Bill: ₹[[${totalBill}]]</h3>
+
+    <div class="btn-container">
+        <a th:href="@{${acceptUrl}}" class="btn accept-btn">Accept Order</a>
+        <a th:href="@{${rejectUrl}}" class="btn reject-btn">Reject Order</a>
+    </div>
+
+    <p>Thank you,</p>
+    <p>Accio Grocery Delivery System</p>
+</div>
+</body>
+</html>
