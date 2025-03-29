@@ -130,4 +130,10 @@ public class DatabaseApi extends ApiUtilImpl{
         Type listType=new TypeToken<List<AppUser>>(){}.getType();
         return mapper.map(response,listType);
     }
+
+    public AppOrder getOrderByOrderId(UUID orderId) {
+        String endPoint="/order/"+orderId.toString();
+        Object response=makeGetCall(dbApiUrl,endPoint,new HashMap<>());
+        return mapper.map(response, AppOrder.class);
+    }
 }

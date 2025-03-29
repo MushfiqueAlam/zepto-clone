@@ -1,5 +1,6 @@
 package com.central_api.service;
 
+import com.central_api.enums.DeliveryPartnerStatus;
 import com.central_api.exception.ProductNotPresentException;
 import com.central_api.exception.UserNotFoundException;
 import com.central_api.exception.WareHouseNotFoundException;
@@ -105,5 +106,22 @@ public class OrderService {
     }
 
 
+    public void acceptOrder( UUID orderId,UUID partnerId) {
+        AppOrder order=databaseApi.getOrderByOrderId(orderId);
 
+        if(order.getDeliveryPartner()!=null){
+            return;
+        }
+        AppUser deliveryPartner=databaseApi.getUserByUserId(partnerId);
+        if(deliveryPartner.getStatus().equals(DeliveryPartnerStatus.OCCUPIED.toString())){
+            return;
+        }
+        deliveryPartner.setStatus(DeliveryPartnerStatus.OCCUPIED.toString());
+        order.setDeliveryPartner(deliveryPartner);
+        RequestOrderDto orderDto=new RequestOrderDto();
+        orderDto.setOrder(order);
+        orderDto.setCustomer(order.getCustomer());
+        orderDto.setDeliveryPartner(deliveryPartner);
+        mailUtil.sendAcceptNotification(orderDto);
+    }
 }
