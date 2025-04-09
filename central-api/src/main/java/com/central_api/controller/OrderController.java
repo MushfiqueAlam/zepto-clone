@@ -34,6 +34,7 @@ public class OrderController {
         }catch (UserNotFoundException e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }catch (Exception e){
+            System.out.println("yes");
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
