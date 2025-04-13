@@ -5,6 +5,7 @@ import com.central_api.exception.WareHouseNotFoundException;
 import com.central_api.models.AppUser;
 import com.central_api.models.Product;
 import com.central_api.requestDto.RegisterUserDto;
+import com.central_api.security.JwtTokenUtil;
 import com.central_api.service.UserService;
 import com.central_api.service.WareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,17 @@ public class UserController {
         }
 
         @Autowired
-    WareHouseService wareHouseService;
+        private JwtTokenUtil jwtTokenUtil;
+
+        @Autowired
+        WareHouseService wareHouseService;
 
         @PostMapping("/register")
-        public AppUser createUser(@RequestBody RegisterUserDto userDto){
+        public String createUser(@RequestBody RegisterUserDto userDto){
             AppUser appUser=userService.createUser(userDto);
-            return appUser;
+            String credentials=appUser.getEmail()+":"+appUser.getPassword();
+            String token=jwtTokenUtil.generateJwtToken(credentials);
+            return token;
         }
 
         @GetMapping("/products")
