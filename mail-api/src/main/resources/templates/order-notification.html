@@ -49,6 +49,8 @@
             border-radius: 5px;
             margin: 5px;
             display: inline-block;
+            border:none;
+            cursor:pointer;
         }
         .accept-btn {
             background-color: #28a745;
@@ -92,8 +94,10 @@
     <h3>Total Bill: ₹[[${totalBill}]]</h3>
 
     <div class="btn-container">
-        <a th:href="@{${acceptUrl}}" class="btn accept-btn">Accept Order</a>
-        <a th:href="@{${rejectUrl}}" class="btn reject-btn">Reject Order</a>
+        <form th:action="@{${acceptEndpoint}}" method="get">
+            <button type="submit" class="btn accept-btn">Accept Order</button>
+        </form>
+        <a th:href="@{${rejectEndpoint}}" class="btn reject-btn">Reject Order</a>
     </div>
 
     <p>Thank you,</p>

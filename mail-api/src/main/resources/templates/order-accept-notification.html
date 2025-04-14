@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Assigned Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        .order-details {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fafafa;
+            border-left: 5px solid #28a745;
+            text-align: left;
+        }
+        .btn-container {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .confirm-btn {
+            background-color: #007bff;
+        }
+        .alert {
+            color: #dc3545;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Order Assigned</h2>
+    <p>Dear <b>[[${deliveryPartnerName}]]</b>,</p>
+    <p>An order has been assigned to you. Please deliver it to the customer within <b>10 minutes</b>.</p>
+
+    <div class="order-details">
+        <h3>Customer Details</h3>
+        <p><b>Name:</b> [[${customerName}]]</p>
+        <p><b>Phone:</b> [[${customerPhone}]]</p>
+        <p><b>Address:</b> [[${customerAddress}]]</p>
+
+        <h3>Order Details</h3>
+        <p><b>Order ID:</b> [[${orderId}]]</p>
+        <p><b>Pickup Location:</b> [[${pickupLocation}]]</p>
+        <p><b>Delivery Deadline:</b> <span class="alert">10 minutes</span></p>
+    </div>
+
+    <div class="btn-container">
+        <form th:action="@{${confirmUrl}}" method="get">
+            <button type="submit" class="btn confirm-btn">Confirm Delivery</button>
+        </form>
+    </div>
+
+    <p>Thank you,</p>
+    <p>Accio Grocery Delivery System</p>
+</div>
+</body>
+</html>

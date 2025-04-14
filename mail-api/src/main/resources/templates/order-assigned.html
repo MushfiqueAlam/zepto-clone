@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delivery Partner Assigned</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        .order-details {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fafafa;
+            border-left: 5px solid #007bff;
+            text-align: left;
+        }
+        .delivery-details {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fef3c7;
+            border-left: 5px solid #ff9800;
+            text-align: left;
+        }
+        .alert {
+            color: #dc3545;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-container {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .track-btn {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Delivery Partner Assigned</h2>
+    <p>Dear <b>[[${customerName}]]</b>,</p>
+    <p>Your order has been assigned to a delivery partner. It will be delivered shortly!</p>
+
+    <div class="order-details">
+        <h3>Order Details</h3>
+        <p><b>Order ID:</b> [[${orderId}]]</p>
+        <p><b>Estimated Delivery Time:</b> <span class="alert">10 minutes</span></p>
+    </div>
+
+    <div class="delivery-details">
+        <h3>Delivery Partner Details</h3>
+        <p><b>Name:</b> [[${deliveryPartnerName}]]</p>
+        <p><b>Phone:</b> <a th:href="'tel:' + ${deliveryPartnerPhone}" style="color: #007bff; text-decoration: none;">[[${deliveryPartnerPhone}]]</a></p>
+        <p><b>Vehicle Number:</b> [[${vehicleNumber}]]</p>
+    </div>
+
+    <div class="btn-container">
+        <a th:href="@{${trackingUrl}}" class="btn track-btn">Track Your Order</a>
+    </div>
+
+    <p>Thank you for choosing Accio Grocery!</p>
+    <p>Accio Grocery Delivery System</p>
+</div>
+</body>
+</html>

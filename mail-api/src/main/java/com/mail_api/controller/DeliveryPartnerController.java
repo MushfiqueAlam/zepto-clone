@@ -19,4 +19,11 @@ public class DeliveryPartnerController {
         mailService.sendOrderNotificationToDeliveryPartner(requestOrderDto);
         return "Success";
     }
+
+    @PutMapping("/order/accept/notify")
+    public String acceptMail(@RequestBody RequestOrderDto requestOrderDto) throws Exception{
+        mailService.notifyCustomerForOrderAssignment(requestOrderDto);
+        mailService.notifyDeliveryPartnerForOrderAcceptance(requestOrderDto);
+        return "Success";
+    }
 }

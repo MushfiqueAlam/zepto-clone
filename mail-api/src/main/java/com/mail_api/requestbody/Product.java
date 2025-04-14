@@ -6,12 +6,11 @@ import java.util.UUID;
 @Data
 public class Product {
     UUID id;
-    String name;
-    String email;
-    String password;
-    Long phoneNumber;
-    String userType;
-    int pinCode;
-    String address;
-    String status;
+    String productName;
+    int productPrice;
+    String details;
+    String manufacturerEmail;
+    Double rating;
+    int weight;
+    int totalPurchase;
 }
